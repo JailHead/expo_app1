@@ -1,20 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React,{ useState } from 'react';
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Hello world! my name is Diego Antonio Angel Rodriguez</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.titulo}>
+        Administrador de Citas{''}
+        <Text style={styles.tituloBold}>Consultas</Text>        
+      </Text>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#f3f4f6',
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+
+  },
+  titulo:{
+    textAlign: 'center',
+    color: '#374151',
+    fontSize: 30,
+    fontWeight: '600'
+  },
+  tituloBold:{
+    fontWeight: 200,
+    color: '#6D28D9'
   },
 });
