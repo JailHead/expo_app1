@@ -1,7 +1,13 @@
-import React from 'react'
+import React, {useState} from 'react';
 import { Modal, Text, SafeAreaView, StyleSheet, TextInput, View, ScrollView } from 'react-native'
 
 function Form(props) {
+  const {paciente, setPaciente} = useState('')
+  const {propietario, setPropietario} = useState('')
+  const {email, setEmail} = useState('')
+  const {telefono, setTelefono} = useState('')
+  const {fecha, setFecha} = useState('')
+  const {sintomas, setSintomas} = uSeState('')
   const {modalVisible} = props;
   return (
     <Modal animationType='slide' visible={props.modalVisible}>
@@ -15,27 +21,27 @@ function Form(props) {
           </View>
           <View style={styles.campo}>
             <Text style={styles.label}>Nombre Paciente</Text>
-            <TextInput style={styles.input} keyboardType='' placeholder='Nombre del paciente' placeholderTextColor={'#666'}/>
+            <TextInput style={styles.input} keyboardType='' placeholder='Nombre del paciente' placeholderTextColor={'#666'} value={paciente} onChangeText={setPaciente}/>
           </View>
           <View style={styles.campo}>
             <Text style={styles.label}>Nombre Propietario</Text>
-            <TextInput style={styles.input} keyboardType='' placeholder='Nombre Propietario' placeholderTextColor={'#666'}/>
+            <TextInput style={styles.input} keyboardType='' placeholder='Nombre Propietario' placeholderTextColor={'#666'} value={propietario} onChangeText={setPropietario}/>
           </View>
           <View style={styles.campo}>
             <Text style={styles.label}>Email</Text>
-            <TextInput style={styles.input} keyboardType='email-address' placeholder='example@email.com' placeholderTextColor={'#666'}/>
+            <TextInput style={styles.input} keyboardType='email-address' placeholder='example@email.com' placeholderTextColor={'#666'} value={email} onChangeText={setEmail}/>
           </View>
           <View style={styles.campo}>
             <Text style={styles.label}>Telefono</Text>
-            <TextInput style={styles.input} keyboardType='number-pad' placeholder='Nombre del paciente' placeholderTextColor={'#666'}/>
+            <TextInput style={styles.input} keyboardType='number-pad' placeholder='Nombre del paciente' placeholderTextColor={'#666'} value={telefono} onChangeText={setTelefono}/>
           </View>
           <View style={styles.campo}>
             <Text style={styles.label}>Fecha</Text>
-            <TextInput style={styles.input} keyboardType='phone-pad' placeholder='Nombre del paciente' placeholderTextColor={'#666'}/>
+            <TextInput style={styles.input} keyboardType='phone-pad' placeholder='Nombre del paciente' placeholderTextColor={'#666'} value={fecha} onChangeText={setFecha}/>
           </View>
           <View style={styles.campo}>
             <Text style={styles.label}>Sintomas</Text>
-            <TextInput style={[styles.input, styles.sintomasInput]} keyboardType='' placeholder='Nombre del paciente' placeholderTextColor={'#666'} multiline={true} numberOfLines={3}/>
+            <TextInput style={[styles.input, styles.sintomasInput]} keyboardType='' placeholder='Nombre del paciente' placeholderTextColor={'#666'} multiline={true} numberOfLines={3} value={sintomas} onChangeText={setSintomas}/>
           </View>
         </ScrollView>
       </SafeAreaView>
