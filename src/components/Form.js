@@ -1,39 +1,43 @@
 import React from 'react'
-import { Modal, Text, SafeAreaView, StyleSheet, TextInput, View } from 'react-native'
+import { Modal, Text, SafeAreaView, StyleSheet, TextInput, View, ScrollView } from 'react-native'
 
 function Form(props) {
   const {modalVisible} = props;
   return (
     <Modal animationType='slide' visible={props.modalVisible}>
       <SafeAreaView style={styles.contenido}>
-        <Text style={styles.titulo}>
-          Nueva {' '}
-          <Text style={styles.tituloBold}>Cita</Text>
-        </Text>
-        <View style={styles.campo}>
-          <Text style={styles.label}>Nombre Paciente</Text>
-          <TextInput style={styles.input} keyboardType='' placeholder='Nombre del paciente' placeholderTextColor={'#666'}/>
-        </View>
-        <View style={styles.campo}>
-          <Text style={styles.label}>Nombre Propietario</Text>
-          <TextInput style={styles.input} keyboardType='' placeholder='Nombre del paciente' placeholderTextColor={'#666'}/>
-        </View>
-        <View style={styles.campo}>
-          <Text style={styles.label}>Email</Text>
-          <TextInput style={styles.input} keyboardType='email-address' placeholder='Nombre del paciente' placeholderTextColor={'#666'}/>
-        </View>
-        <View style={styles.campo}>
-          <Text style={styles.label}>Telefono</Text>
-          <TextInput style={styles.input} keyboardType='phone-pad' placeholder='Nombre del paciente' placeholderTextColor={'#666'}/>
-        </View>
-        <View style={styles.campo}>
-          <Text style={styles.label}>Fecha</Text>
-          <TextInput style={styles.input} keyboardType='phone-pad' placeholder='Nombre del paciente' placeholderTextColor={'#666'}/>
-        </View>
-        <View style={styles.campo}>
-          <Text style={styles.label}>Sintomas</Text>
-          <TextInput style={styles.input} keyboardType='' placeholder='Nombre del paciente' placeholderTextColor={'#666'}/>
-        </View>
+        <ScrollView>
+          <View style={styles.campo}>
+            <Text style={styles.titulo}>
+              Nueva {' '}
+              <Text style={styles.tituloBold}>Cita</Text>
+            </Text>
+          </View>
+          <View style={styles.campo}>
+            <Text style={styles.label}>Nombre Paciente</Text>
+            <TextInput style={styles.input} keyboardType='' placeholder='Nombre del paciente' placeholderTextColor={'#666'}/>
+          </View>
+          <View style={styles.campo}>
+            <Text style={styles.label}>Nombre Propietario</Text>
+            <TextInput style={styles.input} keyboardType='' placeholder='Nombre Propietario' placeholderTextColor={'#666'}/>
+          </View>
+          <View style={styles.campo}>
+            <Text style={styles.label}>Email</Text>
+            <TextInput style={styles.input} keyboardType='email-address' placeholder='example@email.com' placeholderTextColor={'#666'}/>
+          </View>
+          <View style={styles.campo}>
+            <Text style={styles.label}>Telefono</Text>
+            <TextInput style={styles.input} keyboardType='number-pad' placeholder='Nombre del paciente' placeholderTextColor={'#666'}/>
+          </View>
+          <View style={styles.campo}>
+            <Text style={styles.label}>Fecha</Text>
+            <TextInput style={styles.input} keyboardType='phone-pad' placeholder='Nombre del paciente' placeholderTextColor={'#666'}/>
+          </View>
+          <View style={styles.campo}>
+            <Text style={styles.label}>Sintomas</Text>
+            <TextInput style={[styles.input, styles.sintomasInput]} keyboardType='' placeholder='Nombre del paciente' placeholderTextColor={'#666'} multiline={true} numberOfLines={3}/>
+          </View>
+        </ScrollView>
       </SafeAreaView>
     </Modal>
   )
@@ -69,8 +73,11 @@ const styles = StyleSheet.create({
   input:{
     backgroundColor: '#fff',
     padding: 15,
-    borderRadius: 15,
+    borderRadius: 15,    
   },
+  sintomasInput: {
+    height: 100,
+  }
 })
 
 export default Form
