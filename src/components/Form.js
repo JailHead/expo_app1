@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Modal, Text, SafeAreaView, StyleSheet, TextInput, View, ScrollView } from 'react-native'
+import { Modal, Text, SafeAreaView, StyleSheet, TextInput, View, ScrollView, Pressable } from 'react-native'
 
 function Form(props) {
   const {paciente, setPaciente} = useState('')
@@ -7,8 +7,9 @@ function Form(props) {
   const {email, setEmail} = useState('')
   const {telefono, setTelefono} = useState('')
   const {fecha, setFecha} = useState('')
-  const {sintomas, setSintomas} = uSeState('')
+  const {sintomas, setSintomas} = useState('')
   const {modalVisible} = props;
+
   return (
     <Modal animationType='slide' visible={props.modalVisible}>
       <SafeAreaView style={styles.contenido}>
@@ -19,7 +20,7 @@ function Form(props) {
               <Text style={styles.tituloBold}>Cita</Text>
             </Text>
           </View>
-          <View style={styles.campo}>
+          <View style={styles.primerCampo}>
             <Text style={styles.label}>Nombre Paciente</Text>
             <TextInput style={styles.input} keyboardType='' placeholder='Nombre del paciente' placeholderTextColor={'#666'} value={paciente} onChangeText={setPaciente}/>
           </View>
@@ -43,6 +44,9 @@ function Form(props) {
             <Text style={styles.label}>Sintomas</Text>
             <TextInput style={[styles.input, styles.sintomasInput]} keyboardType='' placeholder='Nombre del paciente' placeholderTextColor={'#666'} multiline={true} numberOfLines={3} value={sintomas} onChangeText={setSintomas}/>
           </View>
+          <Pressable style={styles.btnVolver}>
+            <Text style={styles.btnText} onPress={() => props = false}>Volver</Text>
+          </Pressable>
         </ScrollView>
       </SafeAreaView>
     </Modal>
@@ -63,10 +67,15 @@ const styles = StyleSheet.create({
   tituloBold: {
     fontWeight: '900',
   },
-  campo:{
+  primerCampo:{
     marginTop: 40,
     marginHorizontal: 30,
-    marginBottom: 100,
+    marginBottom: 15,
+    color: '#000',
+  },
+  campo:{    
+    marginHorizontal: 30,
+    marginBottom: 15,
     color: '#000',
   },
   label:{
@@ -83,7 +92,21 @@ const styles = StyleSheet.create({
   },
   sintomasInput: {
     height: 100,
-  }
+  },
+  btnVolver: {
+    backgroundColor:'#fff',
+    padding:20,
+    marginTop:20,
+    marginHorizontal:30,
+    marginBottom: 40,
+    borderRadius:10,
+  },
+  btnText: {
+    textAlign: 'center',
+    fontSize: 24,
+    fontWeight: 'bold',
+    color:'#6d28d9',
+  },
 })
 
 export default Form
