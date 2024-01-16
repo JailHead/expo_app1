@@ -1,17 +1,17 @@
 import React, {useState} from 'react';
-import { Modal, Text, SafeAreaView, StyleSheet, TextInput, View, ScrollView, Pressable } from 'react-native'
+import { Modal, Text, SafeAreaView, StyleSheet, TextInput, View, ScrollView, Pressable } from 'react-native';
+import DatePicker from 'react-native-date-picker';
 
-function Form(props) {
+function Form({modalVisible, setModalVisible}) {
   const {paciente, setPaciente} = useState('')
   const {propietario, setPropietario} = useState('')
   const {email, setEmail} = useState('')
   const {telefono, setTelefono} = useState('')
   const {fecha, setFecha} = useState('')
-  const {sintomas, setSintomas} = useState('')
-  const {modalVisible} = props;
+  const {sintomas, setSintomas} = useState('')  
 
   return (
-    <Modal animationType='slide' visible={props.modalVisible}>
+    <Modal animationType='slide' visible={modalVisible}>
       <SafeAreaView style={styles.contenido}>
         <ScrollView>
           <View style={styles.campo}>
@@ -45,7 +45,7 @@ function Form(props) {
             <TextInput style={[styles.input, styles.sintomasInput]} keyboardType='' placeholder='Nombre del paciente' placeholderTextColor={'#666'} multiline={true} numberOfLines={3} value={sintomas} onChangeText={setSintomas}/>
           </View>
           <Pressable style={styles.btnVolver}>
-            <Text style={styles.btnText} onPress={() => props = false}>Volver</Text>
+            <Text style={styles.btnText} onPress={() => setModalVisible(!modalVisible)}>Volver</Text>
           </Pressable>
         </ScrollView>
       </SafeAreaView>
