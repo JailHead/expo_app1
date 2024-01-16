@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import { Modal, Text, SafeAreaView, StyleSheet, TextInput, View, ScrollView, Pressable } from 'react-native';
-import DatePicker from 'react-native-date-picker';
+import DatePicker from '@dietime/react-native-date-picker';
 
 function Form({modalVisible, setModalVisible}) {
   const {paciente, setPaciente} = useState('')
   const {propietario, setPropietario} = useState('')
   const {email, setEmail} = useState('')
-  const {telefono, setTelefono} = useState('')
-  const {fecha, setFecha} = useState('')
-  const {sintomas, setSintomas} = useState('')  
+  const {telefono, setTelefono} = useState('')  
+  const {sintomas, setSintomas} = useState('')
+  const [date, setDate] = useState(new Date())
 
   return (
     <Modal animationType='slide' visible={modalVisible}>
@@ -38,7 +38,14 @@ function Form({modalVisible, setModalVisible}) {
           </View>
           <View style={styles.campo}>
             <Text style={styles.label}>Fecha</Text>
-            <TextInput style={styles.input} keyboardType='phone-pad' placeholder='Nombre del paciente' placeholderTextColor={'#666'} value={fecha} onChangeText={setFecha}/>
+            <Text style={styles.label}>{date ? date.toDateString() : "Select date..."}</Text>
+          </View>
+          <View style={styles.datePicker}>
+            <DatePicker style={styles.datePicker}
+                value={date}
+                onChange={(value) => setDate(value)}
+                format="yyyy-mm-dd"
+            />
           </View>
           <View style={styles.campo}>
             <Text style={styles.label}>Sintomas</Text>
@@ -106,6 +113,11 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color:'#6d28d9',
+  },
+  datePicker: {
+    backgroundColor: '#fff',
+    marginHorizontal: 30,
+    marginBottom: 15,    
   },
 })
 

@@ -16,8 +16,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "react-devtools": "^5.0.0",
-    "react-native-date-picker": "^4.3.5"
+    "@dietime/react-native-date-picker": "^1.2.1",
+    "react-devtools": "^5.0.0"
   },
   "private": true
 }
