@@ -1,14 +1,39 @@
 import React, {useState} from 'react';
-import { Modal, Text, SafeAreaView, StyleSheet, TextInput, View, ScrollView, Pressable } from 'react-native';
+import { Modal, Text, SafeAreaView, StyleSheet, TextInput, View, ScrollView, Pressable, Alert } from 'react-native';
 import DatePicker from '@dietime/react-native-date-picker';
 
-function Form({modalVisible, setModalVisible}) {
+function Form({modalVisible, setModalVisible, pacientes, setPacientes}) {
   const {paciente, setPaciente} = useState('')
   const {propietario, setPropietario} = useState('')
   const {email, setEmail} = useState('')
   const {telefono, setTelefono} = useState('')  
   const {sintomas, setSintomas} = useState('')
   const [date, setDate] = useState(new Date())
+  const handleCita = () => {
+    //Validar
+    if([paciente, propietario, email, date, sintomas].includes('')){
+      // console.log('Hay errores');
+      Alert.alert('Advetancia', 'Hay errores', [{text:'No es nada'}]);
+      return
+    }
+    // console.log('Paciente agregado');
+    const nuevoPaciente = {
+      paciente,
+      propietario,
+      email,
+      telefono,
+      sintomas,
+      date,
+    }
+    setPacientes([...pacientes, nuevoPaciente])
+    setModalVisible(!modalVisible)
+    
+    setPropietario('')
+    setEmail('')
+    setTelefono('')
+    setDate(new Date())
+    setSintomas('')
+  }
 
   return (
     <Modal animationType='slide' visible={modalVisible}>
@@ -20,6 +45,9 @@ function Form({modalVisible, setModalVisible}) {
               <Text style={styles.tituloBold}>Cita</Text>
             </Text>
           </View>
+          <Pressable style={styles.btnVolver}>
+            <Text style={styles.btnText} onPress={() => setModalVisible(!modalVisible)}>Volver</Text>
+          </Pressable>
           <View style={styles.primerCampo}>
             <Text style={styles.label}>Nombre Paciente</Text>
             <TextInput style={styles.input} keyboardType='' placeholder='Nombre del paciente' placeholderTextColor={'#666'} value={paciente} onChangeText={setPaciente}/>
@@ -45,14 +73,16 @@ function Form({modalVisible, setModalVisible}) {
                 value={date}
                 onChange={(value) => setDate(value)}
                 format="yyyy-mm-dd"
+                locale='es'
+                mode='date'
             />
           </View>
           <View style={styles.campo}>
             <Text style={styles.label}>Sintomas</Text>
             <TextInput style={[styles.input, styles.sintomasInput]} keyboardType='' placeholder='Nombre del paciente' placeholderTextColor={'#666'} multiline={true} numberOfLines={3} value={sintomas} onChangeText={setSintomas}/>
-          </View>
-          <Pressable style={styles.btnVolver}>
-            <Text style={styles.btnText} onPress={() => setModalVisible(!modalVisible)}>Volver</Text>
+          </View>          
+          <Pressable style={styles.btnNuevaCita} onPress={handleCita}>
+            <Text style={styles.btnNuevaCitaTexto}>Agregar cita</Text>
           </Pressable>
         </ScrollView>
       </SafeAreaView>
@@ -118,6 +148,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginHorizontal: 30,
     marginBottom: 15,    
+  },
+  btnNuevaCita: {
+    marginVertical: 50,
+    backgroundColor: '#F59E0B',
+    paddingVertical: 15,
+    marginHorizontal: 30,
+    borderRadius: 10,    
+  },
+  btnNuevaCitaTexto: {
+    textAlign: 'center',
+    color: '#fff',
+    textTransform: 'uppercase',
+    fontSize: 20,
+    fontWeight: '700'
   },
 })
 

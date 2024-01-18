@@ -5,6 +5,7 @@ import Form from './src/components/Form';
 export default function App() {
   //LOS HOOKS SE COLOCAN EN LA PARTE SUPERIOR
   const [modalVisible, setModalVisible] = useState(false);
+  const [pacientes, setPacientes] = useState([]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -15,7 +16,12 @@ export default function App() {
       <Pressable style={styles.btnNuevaCita} onPress={() => setModalVisible(true)}>
         <Text style={styles.btnTextoNuevaCita}>Nueva cita</Text>
       </Pressable>
-      <Form modalVisible = {modalVisible} setModalVisible={setModalVisible}/>
+      <Form 
+        modalVisible = {modalVisible}
+        setModalVisible={setModalVisible}
+        pacientes={pacientes}
+        setPacientes={setPacientes}
+      />
     </SafeAreaView>
   );
 }
