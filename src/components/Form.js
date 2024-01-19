@@ -3,35 +3,36 @@ import { Modal, Text, SafeAreaView, StyleSheet, TextInput, View, ScrollView, Pre
 import DatePicker from '@dietime/react-native-date-picker';
 
 function Form({modalVisible, setModalVisible, pacientes, setPacientes}) {
-  const {paciente, setPaciente} = useState('')
-  const {propietario, setPropietario} = useState('')
-  const {email, setEmail} = useState('')
-  const {telefono, setTelefono} = useState('')  
-  const {sintomas, setSintomas} = useState('')
-  const [date, setDate] = useState(new Date())
+  const [paciente, setPaciente] = useState('')
+  const [propietario, setPropietario] = useState('')
+  const [email, setEmail] = useState('')
+  const [telefono, setTelefono] = useState('')
+  const [fecha, setFecha] = useState(new Date())
+  const [sintomas, setSintomas] = useState('')
   const handleCita = () => {
     //Validar
-    if([paciente, propietario, email, date, sintomas].includes('')){
+    if([paciente, propietario, email, fecha, sintomas].includes('')){
       // console.log('Hay errores');
       Alert.alert('Advetancia', 'Hay errores', [{text:'No es nada'}]);
       return
     }
     // console.log('Paciente agregado');
     const nuevoPaciente = {
+      id: Date.now(),
       paciente,
       propietario,
       email,
       telefono,
       sintomas,
-      date,
+      fecha,
     }
     setPacientes([...pacientes, nuevoPaciente])
     setModalVisible(!modalVisible)
-    
+
     setPropietario('')
     setEmail('')
     setTelefono('')
-    setDate(new Date())
+    setFecha(new Date())
     setSintomas('')
   }
 
@@ -66,12 +67,12 @@ function Form({modalVisible, setModalVisible, pacientes, setPacientes}) {
           </View>
           <View style={styles.campo}>
             <Text style={styles.label}>Fecha</Text>
-            <Text style={styles.label}>{date ? date.toDateString() : "Select date..."}</Text>
+            <Text style={styles.label}>{fecha ? fecha.toDateString() : "Select date..."}</Text>
           </View>
           <View style={styles.datePicker}>
             <DatePicker style={styles.datePicker}
-                value={date}
-                onChange={(value) => setDate(value)}
+                value={fecha}
+                onChange={(value) => setFecha(value)}
                 format="yyyy-mm-dd"
                 locale='es'
                 mode='date'

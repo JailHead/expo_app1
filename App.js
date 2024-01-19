@@ -1,6 +1,14 @@
 import React,{ useState } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Pressable, modal, Modal } from 'react-native';
+import { StyleSheet,
+   Text,
+   View, 
+   SafeAreaView, 
+   Pressable, 
+   Modal,
+   FlatList
+} from 'react-native';
 import Form from './src/components/Form';
+import Paciente from './src/components/Paciente';
 
 export default function App() {
   //LOS HOOKS SE COLOCAN EN LA PARTE SUPERIOR
@@ -16,6 +24,29 @@ export default function App() {
       <Pressable style={styles.btnNuevaCita} onPress={() => setModalVisible(true)}>
         <Text style={styles.btnTextoNuevaCita}>Nueva cita</Text>
       </Pressable>
+
+      {pacientes.length === 0 ?
+        <Text style={styles.noPacientes}>No hay pacientes aún</Text>:
+        <Text>Si hay pacientes</Text>
+        
+        <FlatList
+          style={styles.listado}
+          data={pacientes}
+          keyExtractor={(item) => item.id}
+          renderItem={({item}) => {
+
+            return(
+              <Paciente
+                item={item}
+              />
+            )
+          }}
+        />
+      }
+      [
+        {id:1},
+      ]
+
       <Form 
         modalVisible = {modalVisible}
         setModalVisible={setModalVisible}
@@ -59,4 +90,14 @@ const styles = StyleSheet.create({
     fontWeight:'900',
     textTransform:'uppercase',
   },
+  noPacientes:{
+    textAlign:'center',
+    marginTop: 45,
+    fontSize: 24,
+    fontWeight: '700',
+  },
+  listado:{
+    marginTop: 50,
+    marginHorizontal: 30,
+  }
 });
