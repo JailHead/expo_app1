@@ -1,31 +1,55 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Modal, Text, SafeAreaView, StyleSheet, TextInput, View, ScrollView, Pressable, Alert } from 'react-native';
 import DatePicker from '@dietime/react-native-date-picker';
 
-function Form({modalVisible, setModalVisible, pacientes, setPacientes}) {
+function Form({modalVisible, setModalVisible, pacientes, setPacientes, paciente:pacienteObj}) {
   const [paciente, setPaciente] = useState('')
+  const [id, setId] = useState('')
   const [propietario, setPropietario] = useState('')
   const [email, setEmail] = useState('')
   const [telefono, setTelefono] = useState('')
   const [fecha, setFecha] = useState(new Date())
   const [sintomas, setSintomas] = useState('')
+
+  useEffect(() => {
+    if(Object.keys(pacienteObj).length > 0){
+      setId(pacienteObj.id)
+      setPaciente(pacienteObj.paciente)
+      setPropietario(pacienteObj.propietario)
+      setEmail(pacienteObj.email)
+      setTelefono(pacienteObj.telefono)
+      setFecha(pacienteObj.fecha)
+      setSintomas(pacienteObj.sintomas)
+    }
+  }, [])
+  console.log(pacienteObj)
+
   const handleCita = () => {
     //Validar
     if([paciente, propietario, email, fecha, sintomas].includes('')){
       // console.log('Hay errores');
-      Alert.alert('Advetancia', 'Hay errores', [{text:'No es nada'}]);
+      Alert.alert('Advetancia', 'Llena todos los campos', [{text:'No es nada'}]);
       return
     }
     // console.log('Paciente agregado');
-    const nuevoPaciente = {
-      id: Date.now(),
+    const nuevoPaciente = {      
       paciente,
       propietario,
       email,
       telefono,
       sintomas,
       fecha,
+    }    
+    //Revisar si es un nuevo registro o es una edición
+    if (id){
+      //Editando
+    } else{
+      //Nuevo registro
+      nuevoPaciente.id = Date.now()
+      //Agrega nuevo paciente
+      setPacientes([...pacientes, nuevoPaciente])
     }
+
     setPacientes([...pacientes, nuevoPaciente])
     setModalVisible(!modalVisible)
 
@@ -62,8 +86,8 @@ function Form({modalVisible, setModalVisible, pacientes, setPacientes}) {
             <TextInput style={styles.input} keyboardType='email-address' placeholder='example@email.com' placeholderTextColor={'#666'} value={email} onChangeText={setEmail}/>
           </View>
           <View style={styles.campo}>
-            <Text style={styles.label}>Telefono</Text>
-            <TextInput style={styles.input} keyboardType='number-pad' placeholder='Nombre del paciente' placeholderTextColor={'#666'} value={telefono} onChangeText={setTelefono}/>
+            <Text style={styles.label}>Teléfono</Text>
+            <TextInput style={styles.input} keyboardType='number-pad' placeholder='Número teléfonico' placeholderTextColor={'#666'} value={telefono} onChangeText={setTelefono}/>
           </View>
           <View style={styles.campo}>
             <Text style={styles.label}>Fecha</Text>
@@ -80,7 +104,7 @@ function Form({modalVisible, setModalVisible, pacientes, setPacientes}) {
           </View>
           <View style={styles.campo}>
             <Text style={styles.label}>Sintomas</Text>
-            <TextInput style={[styles.input, styles.sintomasInput]} keyboardType='' placeholder='Nombre del paciente' placeholderTextColor={'#666'} multiline={true} numberOfLines={3} value={sintomas} onChangeText={setSintomas}/>
+            <TextInput style={[styles.input, styles.sintomasInput]} keyboardType='' placeholder='Sintomas' placeholderTextColor={'#666'} multiline={true} numberOfLines={3} value={sintomas} onChangeText={setSintomas}/>
           </View>          
           <Pressable style={styles.btnNuevaCita} onPress={handleCita}>
             <Text style={styles.btnNuevaCitaTexto}>Agregar cita</Text>
@@ -167,3 +191,7 @@ const styles = StyleSheet.create({
 })
 
 export default Form
+
+// useEffect(() => {
+
+// })
