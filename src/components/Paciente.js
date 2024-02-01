@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 const Paciente = ({item, setModalVisible, pacienteEditar}) => {
-    const {paciente, fecha, id}=item;
+    const {paciente, fecha, id} = item;
     const formatearFecha = fecha => {
         const nuevaFecha = new Date(fecha)
         const opciones={

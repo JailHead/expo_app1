@@ -39,11 +39,17 @@ function Form({modalVisible, setModalVisible, pacientes, setPacientes, paciente:
       telefono,
       sintomas,
       fecha,
-    }    
+    }
     //Revisar si es un nuevo registro o es una edición
     if (id){
       //Editando
-    } else{
+      nuevoPaciente.id = id;
+      const pacientesActualizados = pacientes.map(pacienteState =>
+        pacienteState.id === nuevoPaciente.id ? nuevoPaciente : pacienteState)
+
+      setPacientes(pacientesActualizados)
+      setPacienteApp({})
+    } else{      
       //Nuevo registro
       nuevoPaciente.id = Date.now()
       //Agrega nuevo paciente
