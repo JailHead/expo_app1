@@ -28,7 +28,7 @@ function Form({modalVisible, setModalVisible, pacientes, setPacientes, paciente:
     //Validar
     if([paciente, propietario, email, fecha, sintomas].includes('')){
       // console.log('Hay errores');
-      Alert.alert('Advetancia', 'Llena todos los campos', [{text:'No es nada'}]);
+      Alert.alert('Advertancia', 'Llena todos los campos', [{text:'No es nada'}]);
       return
     }
     // console.log('Paciente agregado');

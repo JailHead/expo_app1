@@ -5,7 +5,8 @@ import { StyleSheet,
    SafeAreaView, 
    Pressable, 
    Modal,
-   FlatList
+   FlatList,
+   Alert,
 } from 'react-native';
 import Form from './src/components/Form';
 import Paciente from './src/components/Paciente';
@@ -15,9 +16,30 @@ export default function App() {
   const [modalVisible, setModalVisible] = useState(false);
   const [pacientes, setPacientes] = useState([]);
   const [paciente, setPaciente] = useState({});
+
   const pacienteEditar = id => {
     const pacienteEditar = pacientes.filter(paciente => paciente.id === id)
     setPaciente(pacienteEditar[0])
+  }
+
+  const pacienteEliminar = id => {
+    Alert.alert(
+      '¿Deseas eliminar este paciente?', 'Un paciente eliminado no se puede recuperar', [
+        {
+          text: 'Cancelar',
+          
+        },
+        {
+          text: 'Aceptar',
+          onPress: () => {
+            const pacientesActualizados = pacientes.filter(
+              pacientesState => pacientesState.id !== id
+            )
+            setPacientes(pacientesActualizados)
+          } 
+        }
+      ]
+    )
   }
 
   return (
@@ -43,6 +65,7 @@ export default function App() {
                   item={item}
                   setModalVisible={setModalVisible}
                   pacienteEditar={pacienteEditar}
+                  pacienteEliminar={pacienteEliminar}
                 />
               )
             }}

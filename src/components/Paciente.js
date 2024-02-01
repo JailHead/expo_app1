@@ -6,7 +6,7 @@ import {
     Pressable
 } from 'react-native';
 
-const Paciente = ({item, setModalVisible, pacienteEditar}) => {
+const Paciente = ({item, setModalVisible, pacienteEditar, pacienteEliminar}) => {
     const {paciente, fecha, id} = item;
     const formatearFecha = fecha => {
         const nuevaFecha = new Date(fecha)
@@ -38,7 +38,8 @@ const Paciente = ({item, setModalVisible, pacienteEditar}) => {
                 }}>
                     <Text style={styles.btnTexto}>Editar</Text>
                 </Pressable>
-                <Pressable style={[styles.btn, styles.btnEliminar]}>
+                <Pressable style={[styles.btn, styles.btnEliminar]}
+                onPress={() => pacienteEliminar(id)}>
                     <Text style={styles.btnTexto}>Eliminar</Text>
                 </Pressable>
             </View>

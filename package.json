@@ -18,7 +18,8 @@
     "@babel/core": "^7.20.0",
     "@babel/plugin-transform-class-properties": "^7.23.3",
     "@dietime/react-native-date-picker": "^1.2.1",
-    "react-devtools": "^5.0.0"
+    "react-devtools": "^5.0.0",
+    "react-native-debugger-open": "^0.4.3"
   },
   "private": true
 }
